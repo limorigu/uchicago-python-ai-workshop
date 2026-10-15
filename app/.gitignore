@@ -1,0 +1,5 @@
+# Never commit secrets. Set ANTHROPIC_API_KEY in your environment or in Colab's Secrets panel.
+.env
+*.key
+__pycache__/
+.ipynb_checkpoints/

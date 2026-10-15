@@ -1,0 +1,13 @@
+county_fips,county_name,households,median_household_income,county_type,relation_to_footprint
+097,Lake,265000,98000,suburban,core
+111,McHenry,115000,92000,exurban,core
+089,Kane,190000,88000,suburban,core
+007,Boone,20000,71000,rural,core
+031,Cook,2050000,78000,urban,adjacent
+043,DuPage,350000,105000,suburban,adjacent
+037,DeKalb,38000,68000,rural,adjacent
+201,Winnebago,115000,62000,exurban,adjacent
+093,Kendall,45000,110000,exurban,adjacent
+197,Will,240000,100000,suburban,outer
+099,LaSalle,45000,66000,rural,outer
+091,Kankakee,42000,64000,rural,outer

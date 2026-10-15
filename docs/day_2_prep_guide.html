@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Come prepared — Day 2 tech cohort · From Excel to Python and AI</title>
+<style>
+  @page { size: Letter; margin: 0.45in 0.55in 0.5in 0.55in; }
+  :root {
+    --navy: #0B2545; --mid: #13315C; --steel: #8DA9C4; --tint: #EEF2F7; --tint2: #E3EAF3;
+    --amber: #E09F3E; --amber-tint: #FBF0DC; --green: #2E7D5B; --green-tint: #E4F2EB;
+    --red: #B23A48; --red-tint: #F6E4E7; --text: #1F2937; --muted: #6B7280; --code: #1E2433;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Helvetica Neue", Arial, "Liberation Sans", sans-serif; color: var(--text); font-size: 8.7pt; line-height: 1.3; }
+  a { color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--steel); }
+  code, .cmd { font-family: "Courier New", "Liberation Mono", monospace; }
+  code { background: var(--tint2); padding: 0 3px; border-radius: 3px; font-size: 9pt; }
+  .cmd { display: block; background: var(--code); color: #E5E7EB; padding: 6px 9px; border-radius: 5px; font-size: 8.6pt; line-height: 1.42; white-space: pre-wrap; margin: 4px 0 3px; }
+  .cmd .c { color: #8DA9C4; font-style: italic; }
+  .cmd .out { color: #9ECE6A; }
+
+  .hdr { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid var(--navy); padding-bottom: 6px; margin-bottom: 8px; }
+  .kicker { color: var(--amber); font-size: 8pt; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
+  h1 { font-family: Cambria, Georgia, "Liberation Serif", serif; color: var(--navy); font-size: 20pt; margin: 0; line-height: 1.1; }
+  .sub { color: var(--muted); font-size: 9pt; margin-top: 3px; }
+  .meta { text-align: right; color: var(--muted); font-size: 8.5pt; line-height: 1.4; flex: none; margin-left: 16px; }
+  .hdr > div:first-child { max-width: 68%; }
+  .meta b { color: var(--navy); }
+
+  .intro { display: grid; grid-template-columns: 1.55fr 1fr; gap: 10px; margin-bottom: 8px; }
+  .intro p { margin: 0 0 4px; }
+  .bring { background: var(--tint); border-radius: 7px; padding: 8px 11px; }
+  .bring h3 { margin: 0 0 4px; font-size: 9.3pt; color: var(--navy); }
+  .bring ul { margin: 0; padding-left: 15px; }
+  .bring li { margin: 1px 0; }
+
+  .step { display: grid; grid-template-columns: 34px 1fr; gap: 10px; margin: 0 0 6px; page-break-inside: avoid; }
+  .num { width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: white; font-weight: 700; font-size: 13pt; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .step h2 { margin: 0 0 1px; font-size: 11pt; color: var(--navy); font-family: Cambria, Georgia, "Liberation Serif", serif; }
+  .step h2 .t { font-family: "Helvetica Neue", Arial, sans-serif; font-weight: 400; color: var(--muted); font-size: 8.5pt; margin-left: 6px; }
+  .step .why { color: var(--muted); font-size: 8.6pt; margin: 0 0 2px; }
+  ol.do { margin: 2px 0 0; padding-left: 17px; }
+  ol.do li { margin: 1px 0; }
+  ol.do li::marker { color: var(--navy); font-weight: 700; }
+  ul.do { margin: 2px 0 0; padding-left: 17px; }
+  ul.do li { margin: 1px 0; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .two > div { min-width: 0; }
+  .expect { display: inline-block; background: var(--green-tint); color: var(--green); border-radius: 4px; padding: 1px 7px; font-size: 8.6pt; font-weight: 600; margin-top: 3px; }
+  .note { background: var(--amber-tint); border-radius: 5px; padding: 4px 8px; font-size: 8.5pt; margin-top: 3px; }
+
+  .boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; page-break-inside: avoid; }
+  .box { border-radius: 7px; padding: 7px 10px; }
+  .box h3 { margin: 0 0 4px; font-size: 10pt; color: var(--navy); }
+  .box.help { background: var(--navy); color: white; }
+  .box.help h3, .box.help a { color: white; }
+  .box.help a { border-bottom-color: var(--steel); }
+  .box.help .step-h { color: var(--amber); font-weight: 700; }
+  .box.trouble { background: var(--tint); }
+  .box p { margin: 0 0 3px; font-size: 8.6pt; }
+  .box ul { margin: 0; padding-left: 15px; font-size: 8.6pt; }
+  .box li { margin: 1px 0; }
+
+  .check { margin-top: 6px; border: 1.5px solid var(--navy); border-radius: 7px; padding: 5px 10px; page-break-inside: avoid; }
+  .check h3 { margin: 0 0 3px; font-size: 9.5pt; color: var(--navy); }
+  .check .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 16px; }
+  .check .item { display: flex; gap: 7px; align-items: baseline; font-size: 8.4pt; }
+  .check .bx { width: 11px; height: 11px; border: 1.5px solid var(--navy); border-radius: 2px; flex: none; position: relative; top: 1px; }
+
+  .pb { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="kicker">Before Day 2 · tech cohort · read me first</div>
+    <h1>Come prepared: your Day 2 checklist</h1>
+    <div class="sub">From Excel to Python and AI · Day 2 — AI for finance · University of Chicago</div>
+  </div>
+  <div class="meta"><b>Total time: about 45 minutes</b><br>Finish <b>before Day 2</b></div>
+</div>
+
+<div class="intro">
+  <div>
+    <p>You are joining on <b>Day 2 only</b> — 9:00–3:00. The room will be half you (25 tech majors) and half finance students who spent Day 1 in a full-day Python bootcamp: pandas, functions, Git, CI, and a case study on FCC broadband data. Day 2 covers how LLMs actually work, a hands-on case building and honestly evaluating an LLM news classifier for a hotel investor, and ends with an <b>extension sprint in mixed teams of five</b> — two to three finance students and two to three of you per team, each team extending its own pipeline and demoing it.</p>
+    <p>You can likely do this checklist in half the stated time. The parts not to skip are steps 3 and 4: the finance context is what your teammates bring, and knowing a little of it is what makes the teams work.</p>
+  </div>
+  <div class="bring">
+    <h3>What to bring on the day</h3>
+    <ul>
+      <li>Laptop <b>and charger</b></li>
+      <li>Your Google login and your GitHub login</li>
+      <li>Chrome or Edge (Chrome is smoothest with Colab)</li>
+      <li>Your <b>own API key</b>, obtained before the weekend through your university's AI access (see step 5) — if you can't get one, the day still works in mock mode</li>
+    </ul>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="num">1</div>
+  <div>
+    <h2>Confirm Colab works and run the setup check <span class="t">10 min</span></h2>
+    <p class="why">The whole day runs in Google Colab — no local environment, no installs. One notebook proves your account is ready.</p>
+    <div class="two">
+      <div>
+        <ol class="do">
+          <li>Sign in at <a href="https://colab.research.google.com">colab.research.google.com</a>. <b>Use a personal Gmail</b> if your university account says Colab is disabled.</li>
+          <li><a href="https://colab.research.google.com/github/limorigu/uchicago-python-ai-workshop/blob/main/notebooks/00_setup_check.ipynb"><b>Open 00_setup_check in Colab</b></a> and click <b>Runtime → Run all</b>. If Colab warns the notebook <i>was not authored by Google</i>, click <b>Run anyway</b>.</li>
+          <li>Wait ~30 seconds and check the bottom of the notebook.</li>
+        </ol>
+      </div>
+      <div>
+        <span class="cmd">Loaded 236,549 rows x 12 columns
+<span class="out">You're ready ✔  See you at 9:00.</span></span>
+        <span class="expect">✔ Expected: “You're ready” at the bottom of the notebook</span>
+        <div class="note">If Colab is blocked on your university account, switch to a personal Gmail now — fixing it on the day costs your team time.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="num">2</div>
+  <div>
+    <h2>Make sure your GitHub account is ready <span class="t">5 min</span></h2>
+    <p class="why">The finance cohort set up repositories and CI on Day 1. Sprint teams share code through GitHub, and Colab's “Save a copy in GitHub” is the move we use.</p>
+    <ol class="do">
+      <li>Sign in at <a href="https://github.com">github.com</a> (or create a free account at <a href="https://github.com/signup">github.com/signup</a> with two-factor enabled).</li>
+      <li>Test the connection once: in any Colab notebook, click <b>File → Save a copy in GitHub</b>, authorise Colab if asked, and save to any repository you own. If that works, you are set.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="num">3</div>
+  <div>
+    <h2>Skim what the finance cohort built on Day 1 <span class="t">15 min</span></h2>
+    <p class="why">Day 2 builds directly on Day 1's case. You don't need to do the exercises — just read the solution notebook so the vocabulary and the data are familiar.</p>
+    <div class="two">
+      <div>
+        <ol class="do">
+          <li><a href="https://colab.research.google.com/github/limorigu/uchicago-python-ai-workshop-solutions/blob/main/notebooks/02_fcc_whitespace_SOLUTION.ipynb"><b>Open 02_fcc_whitespace_SOLUTION in Colab</b></a> and read it top to bottom (don't run it — just read). It lives in a private repo: you'll get a GitHub invite after the survey — accept it first, and sign in to GitHub when Colab asks.</li>
+          <li>Note the shape of the work: load a 236k-row FCC broadband file, filter and group it, and find “whitespace” — census blocks underserved by current providers — for an investment screen.</li>
+        </ol>
+      </div>
+      <div>
+        <ul class="do">
+          <li>The punchline the finance cohort reached: <b>458 whitespace blocks, ~42,220 units</b>, with payback periods per county driving where to build.</li>
+          <li>Day 2's case (<code>03_news_dashboard</code>) swaps the dataset for news headlines and the tool for an LLM — the <i>evaluation discipline</i> is the same.</li>
+          <li>Skim the <b>Excel→pandas cheat sheet</b> (Appendix B of <code>docs/workshop_design.docx</code>) — it is your finance teammates' mental model; speak it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="num">4</div>
+  <div>
+    <h2>A 10-minute primer: how a PE analyst reads the news <span class="t">10 min</span></h2>
+    <p class="why">Day 2's case and the extension sprint are built around a question your finance teammates ask daily: “of everything published today, what actually matters to my portfolio?”</p>
+    <div class="two">
+      <div>
+        <ul class="do">
+          <li>A private-equity firm owns a handful of companies (“portfolio companies”) for 3–7 years. Analysts monitor news for <b>signals that change the investment case</b>: a competitor's acquisition, new regulation, a customer bankruptcy, management departures, input-cost shocks.</li>
+          <li>Most news is noise. The valuable skill is <b>triage</b>: tag each story by company, theme and severity, and escalate the few that matter. That tagging job is exactly what Day 2's LLM classifier does.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="do">
+          <li>What “good” looks like to an analyst: <b>no missed critical stories</b> (recall on the bad news), tolerable false alarms, and a one-line reason they can check. A system that is 89% accurate but can't say <i>which</i> 11% it gets wrong is unusable.</li>
+          <li>Hold that thought for the sprint rubric: every demo must name what the tool <b>should not be trusted for</b>.</li>
+        </ul>
+        <div class="note">Optional (10 min): 3Blue1Brown, <i>But what is a GPT?</i> — <a href="https://www.3blue1brown.com/lessons/gpt">3blue1brown.com/lessons/gpt</a> — if you haven't seen how next-token prediction works.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="num">5</div>
+  <div>
+    <h2>Get an AI assistant account and know the key rules <span class="t">3 min</span></h2>
+    <p class="why">You will use a chat assistant for debugging all day, and your own API key inside Colab for the case and the sprint.</p>
+    <ol class="do">
+      <li>Have a free account on any of: <a href="https://claude.ai">claude.ai</a>, <a href="https://chatgpt.com">chatgpt.com</a>, <a href="https://gemini.google.com">gemini.google.com</a>.</li>
+      <li><b>Bring your own API key.</b> Your university gives you access to AI tools and API keys — set one up <b>before the weekend</b> (it can take a few minutes and the room's wifi is not the place to discover a problem). On the day it goes in <b>Colab Secrets</b> (the key icon in the left sidebar) — <b>never in a code cell, never committed to GitHub</b>. Your key, your spend — so batch calls and prefer cheaper models for iteration. No key? Mock mode covers the whole case.</li>
+    </ol>
+    <div class="note">Recommended (15 min): Anthropic's <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview">prompt engineering overview</a> — Day 2's context-engineering talk assumes nothing, but this makes the case work faster.</div>
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step">
+  <div class="num">6</div>
+  <div>
+    <h2>Fill in the 2-minute survey <span class="t">2 min</span></h2>
+    <p class="why">It asks your background and GitHub username — we use it to compose the mixed teams in advance.</p>
+    <ol class="do">
+      <li>Submit it after step 2 so your GitHub username is final: <a href="https://forms.gle/12uzGqjYnx3BtkD88"><b>forms.gle/12uzGqjYnx3BtkD88</b></a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="boxes">
+  <div class="box trouble">
+    <h3>The extension sprint, so you can think ahead</h3>
+    <ul>
+      <li><b>Format:</b> pick a direction over the working lunch, brief at 1:40, build 1:50–2:35, 2-minute demos 2:35–2:55, awards at 3:00. Teams of five, mixed finance + tech.</li>
+      <li><b>Directions</b> to pick from — a three-company watchlist, a cost-aware classifier, an analyst digest, a deployed dashboard — all extending the case pipeline your team just built.</li>
+      <li><b>Rubric:</b> does it work (30) · honest evaluation (25) · usefulness to an analyst (25) · demo quality (20). Working beats ambitious; an honest evaluation on ≥10 real items beats a perfect-looking demo.</li>
+      <li><b>Your role:</b> you'll likely drive the build — batching API calls, caching, a quick UI. Your finance teammates own what “useful” and “correct” mean. The best teams trade those jobs mid-way.</li>
+    </ul>
+  </div>
+  <div class="box help">
+    <h3>Stuck before the day?</h3>
+    <p><span class="step-h">1.</span> Paste the exact error into your AI assistant with one line of context; follow its suggestion. Then search the exact error text on the web.</p>
+    <p><span class="step-h">2.</span> Still stuck? Email <a href="mailto:limor.gultchin@gmail.com">limor.gultchin@gmail.com</a> with the step, a screenshot, and what you tried — <b>before Day 2</b>.</p>
+    <p style="margin-top:4px; color:#CADCFC">Doors open 8:45 on Day 2. Team assignments are on the screen when you walk in.</p>
+  </div>
+</div>
+
+<div class="check">
+  <h3>Done? Tick every box before Day 2</h3>
+  <div class="grid">
+    <div class="item"><span class="bx"></span>00_setup_check.ipynb ends with “You're ready ✔”</div>
+    <div class="item"><span class="bx"></span>GitHub login works; Colab → GitHub save tested</div>
+    <div class="item"><span class="bx"></span>Read 02_fcc_whitespace_SOLUTION top to bottom</div>
+    <div class="item"><span class="bx"></span>Read the PE news-triage primer (step 4)</div>
+    <div class="item"><span class="bx"></span>AI assistant account works</div>
+    <div class="item"><span class="bx"></span>Survey submitted with your GitHub username</div>
+    <div class="item"><span class="bx"></span>Laptop charged, charger packed, both logins known</div>
+    <div class="item"><span class="bx"></span>Skimmed the extension-sprint box above</div>
+  </div>
+</div>
+
+</body>
+</html>

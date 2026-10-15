@@ -1,0 +1,10 @@
+technology,technology_name
+10,Copper Wire (DSL)
+40,Cable (Coaxial / HFC)
+50,Fiber to the Premises
+60,Geostationary Satellite
+61,Non-geostationary Satellite
+70,Unlicensed Fixed Wireless
+71,Licensed Fixed Wireless
+72,Licensed-by-Rule Fixed Wireless
+0,Other

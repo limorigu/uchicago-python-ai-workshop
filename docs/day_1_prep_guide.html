@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Come prepared — From Excel to Python and AI</title>
+<style>
+  @page { size: Letter; margin: 0.45in 0.55in 0.5in 0.55in; }
+  :root {
+    --navy: #0B2545; --mid: #13315C; --steel: #8DA9C4; --tint: #EEF2F7; --tint2: #E3EAF3;
+    --amber: #E09F3E; --amber-tint: #FBF0DC; --green: #2E7D5B; --green-tint: #E4F2EB;
+    --red: #B23A48; --red-tint: #F6E4E7; --text: #1F2937; --muted: #6B7280; --code: #1E2433;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  /* zoom scales the whole layout uniformly in Chromium's print renderer —
+     the safety valve that keeps each half of the guide on one Letter page */
+  body { font-family: "Helvetica Neue", Arial, "Liberation Sans", sans-serif; color: var(--text); font-size: 8.7pt; line-height: 1.3; zoom: 0.94; }
+  a { color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--steel); }
+  code, .cmd { font-family: "Courier New", "Liberation Mono", monospace; }
+  code { background: var(--tint2); padding: 0 3px; border-radius: 3px; font-size: 9pt; }
+  .cmd { display: block; background: var(--code); color: #E5E7EB; padding: 6px 9px; border-radius: 5px; font-size: 8.6pt; line-height: 1.42; white-space: pre-wrap; margin: 4px 0 3px; }
+  .cmd .c { color: #8DA9C4; font-style: italic; }
+  .cmd .out { color: #9ECE6A; }
+
+  /* header */
+  .hdr { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid var(--navy); padding-bottom: 6px; margin-bottom: 8px; }
+  .kicker { color: var(--amber); font-size: 8pt; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
+  h1 { font-family: Cambria, Georgia, "Liberation Serif", serif; color: var(--navy); font-size: 20pt; margin: 0; line-height: 1.1; }
+  .sub { color: var(--muted); font-size: 9pt; margin-top: 3px; }
+  .meta { text-align: right; color: var(--muted); font-size: 8.5pt; line-height: 1.4; flex: none; margin-left: 16px; }
+  .hdr > div:first-child { max-width: 68%; }
+  .meta b { color: var(--navy); }
+
+  .intro { display: grid; grid-template-columns: 1.55fr 1fr; gap: 10px; margin-bottom: 8px; }
+  .intro p { margin: 0; }
+  .bring { background: var(--tint); border-radius: 7px; padding: 8px 11px; }
+  .bring h3 { margin: 0 0 4px; font-size: 9.3pt; color: var(--navy); }
+  .bring ul { margin: 0; padding-left: 15px; }
+  .bring li { margin: 1px 0; }
+
+  /* steps */
+  .step { display: grid; grid-template-columns: 34px 1fr; gap: 10px; margin: 0 0 6px; page-break-inside: avoid; }
+  .num { width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: white; font-weight: 700; font-size: 13pt; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .num.opt { background: white; color: var(--navy); border: 2px solid var(--navy); }
+  .step h2 { margin: 0 0 1px; font-size: 11pt; color: var(--navy); font-family: Cambria, Georgia, "Liberation Serif", serif; }
+  .step h2 .t { font-family: "Helvetica Neue", Arial, sans-serif; font-weight: 400; color: var(--muted); font-size: 8.5pt; margin-left: 6px; }
+  .step .why { color: var(--muted); font-size: 8.6pt; margin: 0 0 2px; }
+  ol.do { margin: 2px 0 0; padding-left: 17px; }
+  ol.do li { margin: 1px 0; }
+  ol.do li::marker { color: var(--navy); font-weight: 700; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .two > div { min-width: 0; }
+  .expect { display: inline-block; background: var(--green-tint); color: var(--green); border-radius: 4px; padding: 1px 7px; font-size: 8.6pt; font-weight: 600; margin-top: 3px; }
+  .note { background: var(--amber-tint); border-radius: 5px; padding: 4px 8px; font-size: 8.5pt; margin-top: 3px; }
+  .fill { background: var(--amber-tint); border: 1.5px dashed var(--amber); border-radius: 4px; padding: 0 6px; color: #7a4d00; font-weight: 600; }
+
+  /* boxes */
+  .boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; page-break-inside: avoid; }
+  .box { border-radius: 7px; padding: 7px 10px; }
+  .box h3 { margin: 0 0 4px; font-size: 10pt; color: var(--navy); }
+  .box.help { background: var(--navy); color: white; }
+  .box.help h3, .box.help a { color: white; }
+  .box.help a { border-bottom-color: var(--steel); }
+  .box.help .step-h { color: var(--amber); font-weight: 700; }
+  .box.trouble { background: var(--tint); }
+  .box.trouble dl { margin: 0; }
+  .box.trouble dt { font-weight: 700; color: var(--navy); margin-top: 2px; font-size: 8.6pt; }
+  .box.trouble dd { margin: 0; font-size: 8.4pt; }
+  .box p { margin: 0 0 3px; font-size: 8.6pt; }
+
+  .check { margin-top: 6px; border: 1.5px solid var(--navy); border-radius: 7px; padding: 5px 10px; page-break-inside: avoid; }
+  .check h3 { margin: 0 0 3px; font-size: 9.5pt; color: var(--navy); }
+  .check .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 16px; }
+  .check .item { display: flex; gap: 7px; align-items: baseline; font-size: 8.4pt; }
+  .check .bx { width: 11px; height: 11px; border: 1.5px solid var(--navy); border-radius: 2px; flex: none; position: relative; top: 1px; }
+
+  .foot { color: var(--muted); font-size: 7.8pt; margin-top: 8px; display: flex; justify-content: space-between; }
+  .pb { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="kicker">Before the workshop · read me first</div>
+    <h1>Come prepared: your setup checklist</h1>
+    <div class="sub">From Excel to Python and AI · a two-day workshop for finance students · University of Chicago</div>
+  </div>
+  <div class="meta"><b>Total time: about 45 minutes</b><br>plus ~60 min of pre-reading<br>Finish <b>before Day 1</b></div>
+</div>
+
+<div class="intro">
+  <div>
+    <p>The workshop runs over two days — <b>Day 1</b>, a Python bootcamp, and <b>Day 2</b>, an AI day joint with UChicago tech majors, ending in a team build sprint. Everything runs in your web browser — <b>nothing needs to be installed</b>. You need a laptop, a Google account and a GitHub account. The steps below get all three working and prove it. Do them in order, before Day 1. Written for people who have never coded; if you have, it takes fifteen minutes.</p>
+  </div>
+  <div class="bring">
+    <h3>What to bring on the day</h3>
+    <ul>
+      <li>Laptop (Mac or Windows) <b>and charger</b> — both days</li>
+      <li>Your Google login and your GitHub login</li>
+      <li>Chrome or Edge (Safari and Firefox work; Chrome is smoothest)</li>
+      <li>A personal laptop if your work laptop blocks websites or downloads</li>
+    </ul>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="num">1</div>
+  <div>
+    <h2>Run your first Python program in Google Colab <span class="t">10 min</span></h2>
+    <p class="why">Colab is a free notebook that runs Python on Google's computers. It is what we use all day, so this is the one step that matters most.</p>
+    <div class="two">
+      <div>
+        <ol class="do">
+          <li>Go to <a href="https://colab.research.google.com">colab.research.google.com</a> and sign in with a Google account. <b>Use a personal Gmail</b> if your university account says Colab is disabled.</li>
+          <li>Click <b>File → New notebook</b>. A page with an empty grey box (a “cell”) opens.</li>
+          <li>Click in the cell and type the line on the right, exactly, including the quotes and parentheses.</li>
+          <li>Press <b>Shift + Enter</b> to run it. The first run takes ~10 seconds while Colab connects.</li>
+          <li>Click the title (“Untitled0.ipynb”) at the top, rename it <b>hello.ipynb</b>. It autosaves to your Google Drive.</li>
+        </ol>
+      </div>
+      <div>
+        <span class="cmd">print("Hello, world!")
+<span class="c"># after Shift+Enter you should see:</span>
+<span class="out">Hello, world!</span></span>
+        <span class="expect">✔ Expected: the words Hello, world! appear under the cell</span>
+        <div class="note"><b>Red text instead?</b> Compare your line with the one above character by character — a missing quote or parenthesis is the usual cause. Fix it and press Shift+Enter again.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="num">2</div>
+  <div>
+    <h2>Confirm the packages we need are there <span class="t">3 min</span></h2>
+    <p class="why">A package is a bundle of ready-made Python tools. Colab comes with ours pre-installed; this cell just proves it.</p>
+    <div class="two">
+      <div>
+        <ol class="do">
+          <li>In the same notebook, hover under your first cell and click <b>+ Code</b> to add a new cell.</li>
+          <li>Type (or paste) the four lines on the right and press <b>Shift + Enter</b>.</li>
+          <li>Three version numbers appear, one per line. The exact numbers do not matter.</li>
+        </ol>
+        <div class="note">If a package is ever missing, one line installs it: <code>!pip install package-name</code> (note the exclamation mark). We do this once in class.</div>
+      </div>
+      <div>
+        <span class="cmd">import pandas, numpy, matplotlib
+print(pandas.__version__)
+print(numpy.__version__)
+print(matplotlib.__version__)
+<span class="out">2.2.2
+2.0.2
+3.10.0</span>   <span class="c"># your numbers may differ</span></span>
+        <span class="expect">✔ Expected: three version numbers, no red text</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="num">3</div>
+  <div>
+    <h2>Create a GitHub account and your first repository <span class="t">10 min</span></h2>
+    <p class="why">GitHub stores code with its full history and lets teams work on it together. In the last hours of Day 1 your group will push code there and watch it be tested automatically.</p>
+    <div class="two">
+      <div>
+        <ol class="do">
+          <li>Go to <a href="https://github.com/signup">github.com/signup</a>. Choose the <b>Free</b> plan. Pick a username you would be happy to put on a CV — you will share it with your group.</li>
+          <li>Verify your email (check spam). GitHub will ask you to set up <b>two-factor authentication</b>; choose the phone-app option and finish it now.</li>
+          <li>Already have an account? Just sign in and skip to step 4.</li>
+          <li>Top-right, click the <b>+</b> then <b>New repository</b>. Name it <b>hello-workshop</b>, keep it <b>Public</b>, tick <b>Add a README file</b>, click <b>Create repository</b>.</li>
+          <li>Click the pencil icon on the README, type a sentence about yourself, click <b>Commit changes…</b> then <b>Commit changes</b>. That was your first commit — a saved, named snapshot.</li>
+        </ol>
+      </div>
+      <div>
+        <ol class="do" start="6">
+          <li><b>Now connect Colab to GitHub</b> (the exact move we use in class): back in your Colab tab, click <b>File → Save a copy in GitHub</b>. Authorise Colab when asked, choose the repository <b>hello-workshop</b>, leave the rest as is, click <b>OK</b>.</li>
+          <li>Refresh your repository page. <b>hello.ipynb</b> is now listed next to the README — you have just “pushed” your first code.</li>
+        </ol>
+        <span class="expect">✔ Expected: github.com/your-username/hello-workshop shows README.md and hello.ipynb</span>
+        <div class="note">Optional: <a href="https://desktop.github.com">GitHub Desktop</a> is a friendly app for the same actions from your laptop. Not needed for the workshop.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pb"></div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="num">4</div>
+  <div>
+    <h2>Run the workshop's setup check <span class="t">5 min</span></h2>
+    <p class="why">One notebook that loads the workshop data and tells you whether you are ready. If it says so, you are.</p>
+    <div class="two">
+      <div>
+        <ol class="do">
+          <li><a href="https://colab.research.google.com/github/limorigu/uchicago-python-ai-workshop/blob/main/notebooks/00_setup_check.ipynb"><b>Click here to open 00_setup_check in Colab.</b></a> (Or on <a href="https://github.com/limorigu/uchicago-python-ai-workshop">the repository</a>: notebooks → 00_setup_check.ipynb → orange <b>Open in Colab</b> badge.)</li>
+          <li>Click <b>Runtime → Run all</b>. If Colab warns the notebook <i>was not authored by Google</i>, click <b>Run anyway</b> — normal for GitHub notebooks.</li>
+          <li>Wait ~30 seconds, then scroll to the bottom and look for the message on the right.</li>
+        </ol>
+      </div>
+      <div>
+        <span class="cmd">Loaded 236,549 rows x 12 columns
+<span class="out">You're ready ✔  See you at 9:00.</span></span>
+        <span class="expect">✔ Expected: “You're ready” at the bottom of the notebook</span>
+        <div class="note">Remember that row count: Excel stops at 1,048,576 rows; the real file has hundreds of millions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="num">5</div>
+  <div>
+    <h2>Get a free AI assistant account — your debugging partner <span class="t">5 min</span></h2>
+    <p class="why">When code shows red text, the fastest fix is to paste the error into an AI assistant. You will do this all day.</p>
+    <ol class="do">
+      <li>Sign up for the free tier of any one: <a href="https://claude.ai">claude.ai</a>, <a href="https://chatgpt.com">chatgpt.com</a> or <a href="https://gemini.google.com">gemini.google.com</a>.</li>
+      <li>Test it. In Colab run <code>print(Hello)</code> — no quotes, on purpose. You get <code>NameError: name 'Hello' is not defined</code>. Copy that red text.</li>
+      <li>Paste it into the assistant with: <i>“I'm a beginner learning Python. I ran this in Google Colab and got this error. Explain what went wrong and how to fix it.”</i> <span class="expect" style="margin:0">✔ It should tell you to put quotes around Hello</span></li>
+    </ol>
+    <div class="note"><b>Never paste passwords, API keys or confidential work documents</b> into any AI chat tool. Error messages and public data are fine.</div>
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step">
+  <div class="num">6</div>
+  <div>
+    <h2>Pre-reading and a short survey <span class="t">~60 min, at your own pace</span></h2>
+    <div class="two">
+      <div>
+        <ol class="do">
+          <li><b>Python basics (30 min).</b> <i>Python for Data Analysis</i>, ch. 2, §2.1–2.3, free at <a href="https://wesmckinney.com/book/python-basics">wesmckinney.com/book/python-basics</a>. Skim; the workshop repeats it.</li>
+          <li><b>The data (10 min).</b> Look up your home address at <a href="https://broadbandmap.fcc.gov">broadbandmap.fcc.gov</a>. Note the providers and speeds listed.</li>
+          <li><b>How AI models work (10 min).</b> 3Blue1Brown, <i>But what is a GPT?</i> — <a href="https://www.3blue1brown.com/lessons/gpt">3blue1brown.com/lessons/gpt</a>. Watch at least to the “next-token prediction” section.</li>
+        </ol>
+      </div>
+      <div>
+        <ol class="do" start="4">
+          <li><b>GitHub Hello World (10 min).</b> <a href="https://docs.github.com/en/get-started/start-your-journey/hello-world">docs.github.com → Hello World</a>: branches and pull requests in the browser.</li>
+          <li><b>Survey (2 min).</b> A few quick questions, including your coding background and GitHub username. Fill it in after step 4: <a href="https://forms.gle/12uzGqjYnx3BtkD88"><b>forms.gle/12uzGqjYnx3BtkD88</b></a></li>
+        </ol>
+        <div class="note">Recommended if you have time: Anthropic's <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview">prompt engineering overview</a> (15 min).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 7 optional -->
+<div class="step">
+  <div class="num opt">+</div>
+  <div>
+    <h2>Optional: Python on your own laptop <span class="t">20 min · Colab is all we use in class; this is for coding afterwards without a browser</span></h2>
+    <ol class="do">
+      <li>Install <b>Python 3.12</b> from <a href="https://www.python.org/downloads">python.org/downloads</a>. <b>Windows:</b> tick <b>“Add python.exe to PATH”</b> on the first installer screen. <b>Mac:</b> just run the installer.</li>
+      <li>Install <b>VS Code</b> from <a href="https://code.visualstudio.com">code.visualstudio.com</a>; open it, click the Extensions icon (four squares), search <b>Python</b>, install the one by Microsoft.</li>
+      <li><b>Terminal → New Terminal</b>, then: <code>python --version</code> (Mac: <code>python3 --version</code>) → expect <code>Python 3.12.x</code>; then <code>pip install pandas numpy matplotlib jupyter streamlit</code>.</li>
+      <li><b>File → New File</b>, name it <code>hello.py</code>, type <code>print("Hello, world!")</code>, save, click the ▷ Run button top-right. <span class="expect" style="margin:0">✔ Hello, world! appears in the terminal panel</span></li>
+    </ol>
+  </div>
+</div>
+
+<div class="boxes">
+  <div class="box trouble">
+    <h3>If something goes wrong — the usual suspects</h3>
+    <dl>
+      <dt>Colab: “not available for your organisation”</dt><dd>Your university Google account blocks it. Use a personal Gmail.</dd>
+      <dt>Colab: “Cannot connect to runtime” / spinning forever</dt><dd>Runtime → Disconnect and delete runtime, run again. Turn off ad blockers and VPN.</dd>
+      <dt>GitHub verification email never arrives</dt><dd>Check spam; wait five minutes; add a second email under Settings → Emails.</dd>
+    </dl>
+  </div>
+  <div class="box help">
+    <h3>Stuck? Here is the order of operations</h3>
+    <p><span class="step-h">1.</span> Paste the exact error message plus one line on what you were doing into your AI assistant from step 5, and follow its suggestion. Nine times out of ten that is the end of it. Still stuck after two honest tries? Search the exact error text on the web.</p>
+    <p><span class="step-h">2.</span> Then email <a href="mailto:limor.gultchin@gmail.com">limor.gultchin@gmail.com</a> with the step you were on, a screenshot of the error, what the assistant suggested, and Mac or Windows — <b>before Day 1</b> so there is time to fix it.</p>
+    <p style="margin-top:4px; color:#CADCFC">Getting stuck and then unstuck is not a detour from learning to code — it <i>is</i> learning to code.</p>
+  </div>
+</div>
+
+<div class="check">
+  <h3>Done? Tick every box before Day 1</h3>
+  <div class="grid">
+    <div class="item"><span class="bx"></span>Hello, world! ran in Colab; notebook saved as hello.ipynb</div>
+    <div class="item"><span class="bx"></span>Three package versions printed, no red text</div>
+    <div class="item"><span class="bx"></span>GitHub account + two-factor + hello-workshop repository</div>
+    <div class="item"><span class="bx"></span>hello.ipynb saved from Colab into hello-workshop</div>
+    <div class="item"><span class="bx"></span>00_setup_check.ipynb ends with “You're ready ✔”</div>
+    <div class="item"><span class="bx"></span>AI assistant account works and explained the NameError</div>
+    <div class="item"><span class="bx"></span>Pre-reading done and survey submitted</div>
+    <div class="item"><span class="bx"></span>Laptop charged, charger packed, both logins known</div>
+  </div>
+</div>
+
+</body>
+</html>

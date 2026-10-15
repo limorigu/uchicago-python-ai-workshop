@@ -1,0 +1,56 @@
+# Never commit secrets
+.env
+*.key
+
+# Private instructor logistics — stays local
+INSTRUCTOR_NOTES.md
+SURVEYS.md
+make_feedback_form.gs
+class_gold_labels.xlsx
+
+# Solutions & answer keys — live in the private companion repo, never here
+private/
+notebooks/*_SOLUTION.ipynb
+notebooks/*.TEST.ipynb
+data/news_gold_labels_INSTRUCTOR.csv
+build/case1_solution.py
+build/make_news_cache.py
+
+# Node dependencies (installed via `npm install` for build/md_to_docx.js)
+node_modules/
+
+# Word/Office lock files anywhere
+~$*
+docs/~$*
+
+# OS / editor / Python clutter
+.DS_Store
+__pycache__/
+.ipynb_checkpoints/
+
+# Files the notebooks write when you run them
+notebooks/*.xlsx
+bootcamp_sample.xlsx
+*.xlsx.tmp
+
+# Local backups of superseded builds — keep on disk, never publish
+slides/UChicago_Day1_Slides_backup.pptx
+slides/UChicago_Day2_Slides_backup.pptx
+docs/workshop_design_backup.docx
+/UChicago_Workshop_Design_LG.docx
+
+# Instructor-only slide sources (speaker notes incl. answer keys) — keep local
+slides/UChicago_Workshop_Slides.pptx
+slides/UChicago_Workshop_Slides_w_comments.pptx
+slides/~$*
+build/build_slides.js
+
+# LibreOffice / render scratch
+.~lock.*#
+docs/*.tmp
+
+# Large generated demo data (python build/generate_fcc_data.py --scale 20) and render scratch
+data/*_x20*.csv.gz
+docs/*.jpg
+slides/*.jpg
+slides/*.pdf
